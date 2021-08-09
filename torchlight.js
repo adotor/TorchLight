@@ -53,12 +53,12 @@ class TorchLight {
 			else
 				disableTorchlightButton(tbuttonLight);
 
-			if (noCheck || (hasItemInInventory("Oil (flask)") && (hasItemInInventory("Lantern, Hooded") || hasItemInInventory("Lantern, Bullseye"))))
+			if (noCheck || (hasItemInInventory(game.settings.get("torchlight", "nameConsumableLantern")) && (hasItemInInventory("Lantern, Hooded") || hasItemInInventory("Lantern, Bullseye") || hasItemInInventory("Laterne"))))
 				enableTorchlightButton(tbuttonLantern);
 			else
 				disableTorchlightButton(tbuttonLantern);
 
-			if (noCheck || hasItemInInventory("Torch"))
+			if (noCheck || hasItemInInventory(game.settings.get("torchlight", "nameConsumableTorch")))
 				enableTorchlightButton(tbuttonTorch);
 			else
 				disableTorchlightButton(tbuttonTorch);
@@ -194,7 +194,7 @@ class TorchLight {
 					// The token does not have the lantern on
 					console.log("Clicked on the lantern when the lantern is off.");
 					// Checks whether the character can consume an oil flask
-					if (consumeItem("Oil (flask)")) {
+					if (consumeItem(game.settings.get("torchlight", "nameConsumableLantern"))) {
 						statusLantern = true;
 						await app.object.document.setFlag("torchlight", "statusLantern", true);
 						tbuttonLantern.addClass("active");
@@ -253,7 +253,7 @@ class TorchLight {
 						ChatMessage.create({
 							user: game.user._id,
 							speaker: game.actors.get(data.actorId),
-							content: "No Oil (flask) in Inventory !"
+							content: "No " + game.settings.get("torchlight", "nameConsumableLantern") + " in Inventory !"
 						});
 						disableTorchlightButton(tbuttonLantern);
 					}
@@ -284,7 +284,7 @@ class TorchLight {
 					// The token does not have the torch on
 					console.log("Clicked on the torch when the torch is off.");
 					// Checks whether the character can consume a torch
-					if (consumeItem("Torch")) {
+					if (consumeItem(game.settings.get("torchlight", "nameConsumableTorch"))) {
 						statusTorch = true;
 						await app.object.document.setFlag("torchlight", "statusTorch", true);
 						tbuttonTorch.addClass("active");
