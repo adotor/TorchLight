@@ -44,7 +44,7 @@ class TorchLight {
 		// Enable or disable buttons according to parameters
 		function enableRelevantButtons() {
 			// Stores if checks need to be made to enable buttons
-			let noCheck = game.system.id !== 'dnd5e';
+			let noCheck = !['dnd5e', 'dcc'].includes(game.system.id);
 			if (!noCheck)
 				noCheck = (data.isGM && !game.settings.get("torchlight", "dmAsPlayer")) || !game.settings.get("torchlight", "checkAvailability");
 
@@ -522,7 +522,7 @@ class TorchLight {
 		// Returns true if either the character does not need to consume an item
 		// or if he can indeed consume it (and it is actually consumed)
 		function consumeItem(itemToCheck) {
-			let consume = game.system.id !== 'dnd5e';
+			let consume = !['dnd5e', 'dcc'].includes(game.system.id);
 			if (!consume)
 				consume = (data.isGM && !game.settings.get("torchlight", "dmAsPlayer")) ||
 								!game.settings.get("torchlight", "checkAvailability") ||
@@ -638,7 +638,7 @@ Hooks.once("init", () => {
 		type: Boolean
 	});
 
-	if (game.system.id === 'dnd5e') {
+	if (['dnd5e', 'dcc'].includes(game.system.id)) {
 		game.settings.register("torchlight", "checkAvailability", {
 			name: game.i18n.localize("torchlight.checkAvailability.name"),
 			hint: game.i18n.localize("torchlight.checkAvailability.hint"),
@@ -909,7 +909,7 @@ Hooks.once("init", () => {
 
 
 
-	if (game.system.id === 'dnd5e') {
+	if (['dnd5e', 'dcc'].includes(game.system.id)) {
 		game.settings.register("torchlight", "nameConsumableLantern", {
 			name: game.i18n.localize("torchlight.nameConsumableLantern.name"),
 			hint: game.i18n.localize("torchlight.nameConsumableLantern.hint"),
@@ -1037,7 +1037,7 @@ Hooks.once("init", () => {
 	});
 
 
-	if (game.system.id === 'dnd5e') {
+	if (['dnd5e', 'dcc'].includes(game.system.id)) {
 		game.settings.register("torchlight", "nameConsumableTorch", {
 			name: game.i18n.localize("torchlight.nameConsumableTorch.name"),
 			hint: game.i18n.localize("torchlight.nameConsumableTorch.hint"),
