@@ -542,12 +542,12 @@ class TorchLight {
 					}
 				});
 				consume = selectedItem != undefined
-			}
 
-			if (game.system.id === 'dcc') {
-				await selectedItem.update({"data.quantity": selectedItem.data.data.quantity - 1});
-			} else {
-				await actor.updateOwnedItem({"_id": actor.data.items[selectedOffset]._id, "data.quantity": actor.data.items[selectedOffset].data.quantity - 1});
+				if (game.system.id === 'dcc') {
+					await selectedItem.update({"data.quantity": selectedItem.data.data.quantity - 1});
+				} else {
+					await actor.updateOwnedItem({"_id": actor.data.items[selectedOffset]._id, "data.quantity": actor.data.items[selectedOffset].data.quantity - 1});
+				}
 			}
 
 			return consume;
