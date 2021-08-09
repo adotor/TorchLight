@@ -22,8 +22,8 @@
 		"/css/torchlight.css"
 	],
 	"packs": [],
-	"manifest": "https://raw.githubusercontent.com/PhilippeKr/TorchLight/main/module.json",
-	"download": "https://github.com/PhilippeKr/TorchLight/raw/main/torchlight.zip",
+    "manifest": "https://raw.githubusercontent.com/adotor/TorchLight/private-release/module.json",
+    "download": "https://github.com/adotor/TorchLight/archive/private-release.zip",
 	"minimumCoreVersion": "0.8.6",
 	"compatibleCoreVersion": "0.8.7"
 }
