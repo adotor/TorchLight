@@ -65,6 +65,8 @@
 	"torchlight.lightType.customAnimationSpeed.hint": "Choose the animation speed of the custom Light spell.",
 	"torchlight.lightType.customAnimationIntensity.name": "Custom Light Spell Animation Intensity",
 	"torchlight.lightType.customAnimationIntensity.hint": "Choose the animation intensity of the custom Light spell.",
+	"torchlight.nameSpellLight.name": "Name for Light Spell",
+	"torchlight.nameSpellLight.hint": "Name of the spell to check to cast light.",
 
 	"torchlight.lanternBrightRadius.name": "Lantern: Bright Light Radius",
 	"torchlight.lanternBrightRadius.hint": "Lantern: How many grid units of bright light to emit.",
@@ -93,8 +95,8 @@
 	"torchlight.lanternType.customAnimationSpeed.hint": "Choose the animation speed of the custom lantern.",
 	"torchlight.lanternType.customAnimationIntensity.name": "Custom Lantern Animation Intensity",
 	"torchlight.lanternType.customAnimationIntensity.hint": "Choose the animation intensity of the custom lantern.",
-	"torchlight.nameConsumableTorch.name": "Consumable Item for Lantern",
-	"torchlight.nameConsumableTorch.hint": "Name of the inventory item to check and potentially consume when a lantern is lit.",
+	"torchlight.nameConsumableLantern.name": "Consumable Item for Lantern",
+	"torchlight.nameConsumableLantern.hint": "Name of the inventory item to check and potentially consume when a lantern is lit.",
 
 	"torchlight.torchBrightRadius.name": "Torch: Bright Light Radius",
 	"torchlight.torchBrightRadius.hint": "Torch: How many grid units of bright light to emit.",
