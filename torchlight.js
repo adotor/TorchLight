@@ -521,8 +521,8 @@ class TorchLight {
 
 		// Returns true if either the character does not need to consume an item
 		// or if he can indeed consume it (and it is actually consumed)
-		async function consumeItem(itemToCheck) {
-			let consume = !['dnd5e', 'dcc'].includes(game.system.id);
+		function consumeItem(itemToCheck) {
+			let consume = game.system.id !== 'dnd5e';
 			if (!consume)
 				consume = (data.isGM && !game.settings.get("torchlight", "dmAsPlayer")) ||
 								!game.settings.get("torchlight", "checkAvailability") ||
@@ -531,25 +531,17 @@ class TorchLight {
 				let actor = game.actors.get(data.actorId);
 				if (actor === undefined)
 					return false;
-				let selectedItem;
-				let selectedOffset;
+				let hasItem = false;
 				actor.data.items.forEach((item, offset) => {
 					if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
-						if (game.system.id === 'dcc' ? item.data.data.quantity > 0 : item.data.quantity > 0) {
-							selectedItem = item
-							selectedOffset = offset
+						if (item.data.quantity > 0) {
+							hasItem = true;
+							actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
 						}
 					}
 				});
-				consume = selectedItem != undefined
-
-				if (game.system.id === 'dcc') {
-					await selectedItem.update({"data.quantity": selectedItem.data.data.quantity - 1});
-				} else {
-					await actor.updateOwnedItem({"_id": actor.data.items[selectedOffset]._id, "data.quantity": actor.data.items[selectedOffset].data.quantity - 1});
-				}
+				consume = hasItem
 			}
-
 			return consume;
 		}
 
@@ -655,14 +647,16 @@ Hooks.once("init", () => {
 			default: true,
 			type: Boolean
 		});
-		game.settings.register("torchlight", "consumeItem", {
-			name: game.i18n.localize("torchlight.consumeItem.name"),
-			hint: game.i18n.localize("torchlight.consumeItem.hint"),
-			scope: "world",
-			config: true,
-			default: true,
-			type: Boolean
-		});
+		if (game.system.id === 'dnd5e') {
+			game.settings.register("torchlight", "consumeItem", {
+				name: game.i18n.localize("torchlight.consumeItem.name"),
+				hint: game.i18n.localize("torchlight.consumeItem.hint"),
+				scope: "world",
+				config: true,
+				default: true,
+				type: Boolean
+			});
+		}
 		game.settings.register("torchlight", "dmAsPlayer", {
 			name: game.i18n.localize("torchlight.dmAsPlayer.name"),
 			hint: game.i18n.localize("torchlight.dmAsPlayer.hint"),
