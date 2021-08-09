@@ -537,9 +537,9 @@ class TorchLight {
 						if (game.system.id === 'dcc' ? item.data.data.quantity > 0 : item.data.quantity > 0) {
 							hasItem = true;
 							if (game.system.id === 'dcc') {
-								item.update({"data.quantity": item.data.data.quantity - 1});
+								await item.update({"data.quantity": item.data.data.quantity - 1});
 							} else {
-								actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
+								await actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
 							}
 						}
 					}
@@ -797,7 +797,7 @@ Hooks.once("init", () => {
 			hint: game.i18n.localize("torchlight.nameSpellLight.hint"),
 			scope: "world",
 			config: true,
-			default: "Torch",
+			default: "Light",
 			type: String
 		});
 	}
