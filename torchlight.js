@@ -531,21 +531,25 @@ class TorchLight {
 				let actor = game.actors.get(data.actorId);
 				if (actor === undefined)
 					return false;
-				let hasItem = false;
+				let selectedItem;
+				let selectedOffset;
 				actor.data.items.forEach((item, offset) => {
 					if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
 						if (game.system.id === 'dcc' ? item.data.data.quantity > 0 : item.data.quantity > 0) {
-							hasItem = true;
-							if (game.system.id === 'dcc') {
-								await item.update({"data.quantity": item.data.data.quantity - 1});
-							} else {
-								await actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
-							}
+							selectedItem = item
+							selectedOffset = offset
 						}
 					}
 				});
-				consume = hasItem
+				consume = selectedItem != undefined
 			}
+
+			if (game.system.id === 'dcc') {
+				await selectedItem.update({"data.quantity": selectedItem.data.data.quantity - 1});
+			} else {
+				await actor.updateOwnedItem({"_id": actor.data.items[selectedOffset]._id, "data.quantity": actor.data.items[selectedOffset].data.quantity - 1});
+			}
+
 			return consume;
 		}
 
