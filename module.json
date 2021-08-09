@@ -2,8 +2,8 @@
 	"name": "torchlight",
 	"title": "TorchLight",
 	"description": "TorchLight HUD Controls",
-	"version": "0.10.0",
-	"author": "PhilippeK",
+	"version": "0.10.0-dcc",
+	"author": "PhilippeK (modified by adotor)",
 	"languages": [
 		{
 			"lang": "en",
