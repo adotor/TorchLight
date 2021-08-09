@@ -496,7 +496,7 @@ class TorchLight {
 			let hasLight = false;
 			actor.data.items.forEach(item => {
 				if (item.type === 'spell') {
-					if (item.name === 'Light')
+					if (item.name === game.settings.get("torchlight", "nameSpellLight"))
 						hasLight = true;
 				}
 			});
@@ -512,7 +512,7 @@ class TorchLight {
 			let hasItem = false;
 			actor.data.items.forEach(item => {
 				if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
-					if (item.data.quantity > 0)
+					if (game.system.id === 'dcc' ? item.data.data.quantity > 0 : item.data.quantity > 0)
 						hasItem = true;
 				}
 			});
@@ -534,9 +534,13 @@ class TorchLight {
 				let hasItem = false;
 				actor.data.items.forEach((item, offset) => {
 					if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
-						if (item.data.quantity > 0) {
+						if (game.system.id === 'dcc' ? item.data.data.quantity > 0 : item.data.quantity > 0) {
 							hasItem = true;
-							actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
+							if (game.system.id === 'dcc') {
+								item.update({"data.quantity": item.data.data.quantity - 1});
+							} else {
+								actor.updateOwnedItem({"_id": actor.data.items[offset]._id, "data.quantity": actor.data.items[offset].data.quantity - 1});
+							}
 						}
 					}
 				});
@@ -787,6 +791,16 @@ Hooks.once("init", () => {
 			max: 10,
 		}
 	});
+	if (['dnd5e', 'dcc'].includes(game.system.id)) {
+		game.settings.register("torchlight", "nameSpellLight", {
+			name: game.i18n.localize("torchlight.nameSpellLight.name"),
+			hint: game.i18n.localize("torchlight.nameSpellLight.hint"),
+			scope: "world",
+			config: true,
+			default: "Torch",
+			type: String
+		});
+	}
 
 
 
