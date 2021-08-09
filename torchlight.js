@@ -521,7 +521,7 @@ class TorchLight {
 
 		// Returns true if either the character does not need to consume an item
 		// or if he can indeed consume it (and it is actually consumed)
-		function consumeItem(itemToCheck) {
+		async function consumeItem(itemToCheck) {
 			let consume = !['dnd5e', 'dcc'].includes(game.system.id);
 			if (!consume)
 				consume = (data.isGM && !game.settings.get("torchlight", "dmAsPlayer")) ||
